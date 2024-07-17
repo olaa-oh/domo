@@ -1,6 +1,8 @@
 // main.dart
-import 'package:domo/src/features/authentication/pages/homepage.dart';
-import 'package:domo/src/features/authentication/pages/splash_screen.dart';
+import 'package:domo/src/features/authentication/screens/login_pages/forget_password.dart';
+import 'package:domo/src/features/authentication/screens/login_pages/homepage.dart';
+import 'package:domo/src/features/authentication/screens/login_pages/otp.dart';
+import 'package:domo/src/features/authentication/screens/login_pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:domo/src/constants/style.dart';
 import 'package:domo/src/widgets/navigation_bar.dart';
@@ -20,7 +22,7 @@ class MainApp extends StatelessWidget {
       theme: AppTheme().light,
       // darkTheme: AppTheme().dark,
       // themeMode: ThemeMode.system,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

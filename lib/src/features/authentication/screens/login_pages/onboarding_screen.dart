@@ -1,24 +1,23 @@
 import 'package:domo/src/constants/OnboardingStrings.dart';
 import 'package:domo/src/features/authentication/classes/onboardingModel.dart';
-import 'package:domo/main.dart';
-import 'package:domo/widgets/onboardingPage.dart';
+import 'package:domo/src/features/authentication/screens/login_pages/get_started_page.dart';
+import 'package:domo/src/widgets/onboardingPage.dart';
 import 'package:domo/src/constants/style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
- class OnboardingScreen extends StatefulWidget {
-   OnboardingScreen({super.key});
+class OnboardingScreen extends StatefulWidget {
+  OnboardingScreen({super.key});
 
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-    final controller = LiquidController();
+  final controller = LiquidController();
 
-    int currentPage = 0;
+  int currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +53,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             onboardingCounter: OnboardingStrings.onboardingCounter3,
             height: size.height),
       ),
+      PageView(
+        children: [
+          Container(
+            height: size.height,
+            decoration: const BoxDecoration(color: AppTheme.border),
+          )
+        ],
+      ),
     ];
 
     return Scaffold(
@@ -74,18 +81,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MainApp(),
+                    builder: (context) => const GetStarted(),
                   ),
                 );
               },
-              child: const Icon(
-                Icons.close,
-                color: AppTheme.darkBackground,
+              child: const Text(
+                "Skip",
+                style: TextStyle(color: AppTheme.darkBackground),
               ),
             ),
           ),
           Positioned(
-              bottom: 30,
+              top: 70,
               left: size.width / 2 - 35,
               child: AnimatedSmoothIndicator(
                   activeIndex: controller.currentPage,
@@ -93,22 +100,28 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   effect: const WormEffect(
                     dotWidth: 15,
                     dotHeight: 7,
-                    activeDotColor:  Colors.white,
+                    activeDotColor: Colors.white,
                     dotColor: Color.fromARGB(255, 70, 79, 97),
                   )))
         ],
       ),
     );
-
-    
   }
 
-OnPageChangeCallback(int activePageIndex) {
-  setState(() {
-    currentPage = activePageIndex;
-  });
+  OnPageChangeCallback(int activePageIndex) {
+    setState(() {
+      currentPage = activePageIndex;
+    });
+
+    if (currentPage == 2) {
+      Future.delayed(const Duration(seconds: 2), () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const GetStarted(),
+          ),
+        );
+      });
+    }
   }
 }
-
-
-

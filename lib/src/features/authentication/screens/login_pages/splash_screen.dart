@@ -1,4 +1,4 @@
-import 'package:domo/src/features/authentication/pages/onboarding_screen.dart';
+import 'package:domo/src/features/authentication/screens/login_pages/onboarding_screen.dart';
 import 'package:domo/src/widgets/navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:domo/src/constants/style.dart';

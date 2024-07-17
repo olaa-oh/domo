@@ -9,11 +9,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    # for the google fonts: nunito
   google_fonts: ^6.2.1
   material_symbols_icons: ^4.2768.0
   flutter_animated_icons: ^1.0.1
+  # for the liquid swipe on the onboarding screen
   liquid_swipe: ^3.1.0
+  # for the smooth page indicator
   smooth_page_indicator: ^1.1.0
+  # for the google sign in
+  google_sign_in: ^5.4.0
+  # for the pincode boxes
+  pin_code_fields: ^7.3.0
 
 dev_dependencies:
   flutter_test:

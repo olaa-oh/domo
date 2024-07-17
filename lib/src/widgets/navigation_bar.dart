@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:domo/pages/account.dart';
-import 'package:domo/pages/appointments.dart';
-import 'package:domo/pages/homepage.dart';
+import 'package:domo/src/features/authentication/screens/login_pages/account.dart';
+import 'package:domo/src/features/authentication/screens/login_pages/homepage.dart';
+import 'package:domo/src/features/authentication/screens/login_pages/appointments.dart';
+
 
 class BottomNavBar extends StatefulWidget {
   @override

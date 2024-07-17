@@ -1,7 +1,7 @@
 
-import 'package:domo/classes/OnboardingStrings.dart';
-import 'package:domo/classes/onboardingModel.dart';
-import 'package:domo/styles/style.dart';
+import 'package:domo/src/constants/OnboardingStrings.dart';
+import 'package:domo/src/constants/style.dart';
+import 'package:domo/src/features/authentication/classes/onboardingModel.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingPage extends StatelessWidget {
