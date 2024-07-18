@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "324116815750",
+    "project_id": "domo-5bc43",
+    "storage_bucket": "domo-5bc43.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324116815750:android:a39be619b690fa2f491607",
+        "android_client_info": {
+          "package_name": "com.example.domo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDa7hD7idv5z6jdHMGMXpJAT2Xk2VWcvX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

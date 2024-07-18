@@ -6,8 +6,10 @@ import 'package:domo/src/features/authentication/screens/login_pages/splash_scre
 import 'package:flutter/material.dart';
 import 'package:domo/src/constants/style.dart';
 import 'package:domo/src/widgets/navigation_bar.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main()  async {
+  await Firebase.initializeApp();
   runApp(const MainApp());
 }
 

@@ -60,13 +60,17 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   ),
                 ),
                 Text(
-                  'Forgot Password',
+                  'Forgot Password?',
                   style: AppTheme.textTheme.titleMedium!.copyWith(
                       fontSize: 27,
                       fontWeight: FontWeight.bold,
                       color: AppTheme.button),
                 ),
                 const SizedBox(height: 20),
+                Text("DoNut Worry",
+                    style: AppTheme.textTheme.bodyMedium!.copyWith(
+                      fontSize: 15,
+                    )),
                 Text(
                   'Enter your phone number to reset your password',
                   style: AppTheme.textTheme.bodyMedium!.copyWith(
