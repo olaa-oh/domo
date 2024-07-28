@@ -1,3 +1,4 @@
+// onboarding screen
 import 'package:domo/src/constants/OnboardingStrings.dart';
 import 'package:domo/src/features/authentication/classes/onboardingModel.dart';
 import 'package:domo/src/features/authentication/screens/login_pages/get_started_page.dart';

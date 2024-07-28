@@ -1,8 +1,11 @@
+// splash screen
 import 'package:domo/src/features/authentication/screens/login_pages/onboarding_screen.dart';
 import 'package:domo/src/widgets/navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:domo/src/constants/style.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,17 +17,16 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    Future.delayed(const Duration(seconds: 4), () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => OnboardingScreen(),
-      ));
-    });
-  }
-
+@override
+void initState() {
+  super.initState();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  Future.delayed(const Duration(seconds: 4), () {
+    if (mounted) {  // Add this check
+      Get.off(() => OnboardingScreen());
+    }
+  });
+}
   @override
   void dispose() {
     // TODO: implement dispose

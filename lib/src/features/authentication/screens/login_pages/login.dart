@@ -1,9 +1,12 @@
+// login page
 import 'package:domo/src/constants/style.dart';
+import 'package:domo/src/features/authentication/controllers/create_account_controller.dart';
 import 'package:domo/src/features/authentication/screens/login_pages/forget_password.dart';
-import 'package:domo/src/features/authentication/screens/login_pages/homepage.dart';
+import 'package:domo/src/widgets/navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:domo/src/features/authentication/screens/login_pages/create_account.dart';
+import 'package:get/get.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -14,19 +17,20 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-  final _phoneController = TextEditingController();
-  final _PinController = TextEditingController();
+  final controller = Get.put(CreateAccountController());
+
   bool _obscurePin = true;
 
   @override
   void dispose() {
-    _phoneController.dispose();
-    _PinController.dispose();
     super.dispose();
+    // controller.email.dispose();
+    // controller.password.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // final controller = Get.put(CreateAccountController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -37,7 +41,7 @@ class _LoginState extends State<Login> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 80),
+                const SizedBox(height: 110),
                 Container(
                   height: 100,
                   width: 100,
@@ -62,11 +66,10 @@ class _LoginState extends State<Login> {
                 ),
                 const SizedBox(height: 40),
                 TextFormField(
-                  controller: _phoneController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  controller: controller.email,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    hintText: 'Enter your phone number',
+                    hintText: 'Enter your email',
                     hintStyle: TextStyle(
                       color: AppTheme.button.withOpacity(0.5),
                     ),
@@ -77,22 +80,22 @@ class _LoginState extends State<Login> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your phone number';
+                      return 'Please enter your email';
                     }
-                    if (value.length < 10) {
-                      return 'Phone number must be at least 10 digits';
+                    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                      return 'Please enter a valid email address';
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 30),
                 TextFormField(
-                  controller: _PinController,
+                  controller: controller.password,
                   obscureText: _obscurePin,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  keyboardType: TextInputType.text,
+                  // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   decoration: InputDecoration(
-                    hintText: 'Enter your Pin',
+                    hintText: 'Enter your Password',
                     hintStyle: TextStyle(
                       color: AppTheme.button.withOpacity(0.5),
                     ),
@@ -114,10 +117,10 @@ class _LoginState extends State<Login> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your Pin';
+                      return 'Please enter your Password';
                     }
                     if (value.length < 6) {
-                      return 'Pin must be at least 6 characters';
+                      return 'Password must be at least 8 characters';
                     }
                     return null;
                   },
@@ -135,7 +138,7 @@ class _LoginState extends State<Login> {
                       );
                     },
                     child: Text(
-                      'Forgot Pin?  ',
+                      'Forgot Password?  ',
                       style: AppTheme.textTheme.titleSmall!.copyWith(
                         color: AppTheme.button,
                       ),
@@ -156,13 +159,11 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      // Perform login logic here
-                      print('Phone: ${_phoneController.text}');
-                      print('Pin: ${_PinController.text}');
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Homepage()));
+                      await controller.signInUser(controller.email.text.trim(),
+                          controller.password.text.trim());
+                      // Navigation is now handled in the signInUser method
                     }
                   },
                   child: Text('Login',
@@ -171,20 +172,7 @@ class _LoginState extends State<Login> {
                       )),
                 ),
                 const SizedBox(height: 40),
-                Text(
-                  'Or continue with Google',
-                  style: AppTheme.textTheme.titleSmall!.copyWith(
-                    color: AppTheme.button,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const CircleAvatar(
-                  radius: 20,
-                  backgroundImage: AssetImage(
-                    'assets/images/google.png',
-                  ),
-                  backgroundColor: Colors.transparent,
-                ),
+                
                 const SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -195,8 +183,7 @@ class _LoginState extends State<Login> {
                         )),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => const SignUp()));
+                      Get.to(() => const SignUp());
                       },
                       child: Text("Sign Up",
                           style: AppTheme.textTheme.titleMedium!.copyWith(

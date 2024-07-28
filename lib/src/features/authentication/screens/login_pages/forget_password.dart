@@ -23,14 +23,14 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
                 Align(
                   alignment: Alignment.topLeft,
                   child: IconButton(
                     onPressed: () {
                       // go back to login page
-                        Navigator.pop(
+                      Navigator.pop(
                         context,
                         MaterialPageRoute(
                           builder: (context) => Login(),
@@ -60,12 +60,18 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   ),
                 ),
                 Text(
-                  'Forgot Password',
+                  'Forgot Password?',
                   style: AppTheme.textTheme.titleMedium!.copyWith(
                       fontSize: 27,
                       fontWeight: FontWeight.bold,
                       color: AppTheme.button),
                 ),
+                const SizedBox(height: 5),
+                Text("Donut worry, we got you covered.",
+                    style: AppTheme.textTheme.titleMedium!.copyWith(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: AppTheme.button)),
                 const SizedBox(height: 20),
                 Text(
                   'Enter your phone number to reset your password',
@@ -91,12 +97,12 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => VerifyOTPPage(),
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => VerifyOTPPage(),
+                      //   ),
+                      // );
                     },
                     style: ButtonStyle(
                         backgroundColor:
