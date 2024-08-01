@@ -1,4 +1,3 @@
-// SHOP DETAILS PAGE FOR ARTISAN
 import 'package:flutter/material.dart';
 import 'package:domo/src/constants/shop_model.dart';
 import 'package:domo/src/auth_repository/shopRepository.dart';
@@ -17,6 +16,7 @@ class _ShopDetailsPageState extends State<ShopDetailsPage>
     with WidgetsBindingObserver {
   final ShopRepository _shopRepository = ShopRepository();
   late Future<ShopModel?> _shopFuture;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -40,7 +40,12 @@ class _ShopDetailsPageState extends State<ShopDetailsPage>
 
   Future<void> _refreshShopData() async {
     setState(() {
+      _isLoading = true;
       _shopFuture = _shopRepository.getShopByOwnerId(widget.ownerId);
+    });
+    await _shopFuture;
+    setState(() {
+      _isLoading = false;
     });
   }
 
@@ -53,47 +58,74 @@ class _ShopDetailsPageState extends State<ShopDetailsPage>
       ),
       body: RefreshIndicator(
         onRefresh: _refreshShopData,
-        child: FutureBuilder<ShopModel?>(
-          future: _shopFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (!snapshot.hasData || snapshot.data == null) {
-              return const Center(child: Text('Shop not found'));
-            }
+        child: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : FutureBuilder<ShopModel?>(
+                future: _shopFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Error: ${snapshot.error}'),
+                          ElevatedButton(
+                            onPressed: _refreshShopData,
+                            child: const Text('Retry'),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else if (!snapshot.hasData || snapshot.data == null) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text('Shop not found or not created yet'),
+                          const SizedBox(height: 16),
+                          CircularProgressIndicator(),
+                          const SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: _refreshShopData,
+                            child: const Text('Reload'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
 
-            ShopModel shop = snapshot.data!;
-            print('Shop data in widget: ${shop.toMap()}');
-            return SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              padding: AppTheme.screenPadding,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildShopHeader(shop),
-                  const SizedBox(height: 16),
-                  const Divider(color: AppTheme.border),
-                  _buildSectionTitle('Description'),
-                  Text(shop.description, style: AppTheme.textTheme.bodyMedium),
-                  const Divider(color: AppTheme.border),
-                  const SizedBox(height: 16),
-                  _buildSectionTitle('Services'),
-                  _buildServicesList(shop.services),
-                  const Divider(color: AppTheme.border),
-                  const SizedBox(height: 16),
-                  _buildSectionTitle('Working Hours'),
-                  _buildWorkingHours(shop.workingHours),
-                  const Divider(color: AppTheme.border),
-                  const SizedBox(height: 16),
-                  _buildSectionTitle('Gallery'),
-                  _buildGallery(shop.galleryImageUrls),
-                ],
+                  ShopModel shop = snapshot.data!;
+                  print('Shop data in widget: ${shop.toMap()}');
+                  return SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    padding: AppTheme.screenPadding,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildShopHeader(shop),
+                        const SizedBox(height: 16),
+                        const Divider(color: AppTheme.border),
+                        _buildSectionTitle('Description'),
+                        Text(shop.description, style: AppTheme.textTheme.bodyMedium),
+                        const Divider(color: AppTheme.border),
+                        const SizedBox(height: 16),
+                        _buildSectionTitle('Services'),
+                        _buildServicesList(shop.services),
+                        const Divider(color: AppTheme.border),
+                        const SizedBox(height: 16),
+                        _buildSectionTitle('Working Hours'),
+                        _buildWorkingHours(shop.workingHours),
+                        const Divider(color: AppTheme.border),
+                        const SizedBox(height: 16),
+                        _buildSectionTitle('Gallery'),
+                        _buildGallery(shop.galleryImageUrls),
+                      ],
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
       ),
     );
   }

@@ -126,25 +126,25 @@ class _LoginState extends State<Login> {
                   },
                 ),
                 const SizedBox(height: 20),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ForgetPassword(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'Forgot Password?  ',
-                      style: AppTheme.textTheme.titleSmall!.copyWith(
-                        color: AppTheme.button,
-                      ),
-                    ),
-                  ),
-                ),
+                // Align(
+                //   alignment: Alignment.centerRight,
+                //   child: GestureDetector(
+                //     onTap: () {
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (context) => const ForgetPassword(),
+                //         ),
+                //       );
+                //     },
+                //     child: Text(
+                //       'Forgot Password?  ',
+                //       style: AppTheme.textTheme.titleSmall!.copyWith(
+                //         color: AppTheme.button,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(height: 30),
                 ElevatedButton(
                   style: ButtonStyle(
