@@ -37,8 +37,8 @@ class _BookingCardState extends State<BookingCard> {
                 children: [
                   Text(
                     widget.isArtisan
-                        ? 'Booking from ${widget.booking.userEmail}'
-                        : 'Booking for ${widget.booking.shopName}',
+                        ? 'Booking from: \n ${widget.booking.userEmail}'
+                        : 'Booking for: \n ${widget.booking.shopName}',
                     style: AppTheme.textTheme.titleMedium!
                         .copyWith(fontWeight: FontWeight.bold, color: AppTheme.button),
                   ),

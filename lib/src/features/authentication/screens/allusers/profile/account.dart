@@ -3,7 +3,6 @@ import 'package:domo/src/features/authentication/controllers/create_account_cont
 import 'package:domo/src/features/authentication/controllers/profile_controller.dart';
 import 'package:domo/src/features/authentication/screens/allusers/profile/edit_account_page.dart';
 import 'package:domo/src/features/authentication/screens/customers_pages/favorites_page.dart';
-import 'package:domo/src/features/authentication/screens/customers_pages/notifications_page.dart';
 import 'package:domo/src/features/authentication/screens/allusers/profile/terms_of_use_page.dart';
 import 'package:domo/src/features/authentication/screens/artisans_pages/accountArt.dart';
 import 'package:domo/src/features/authentication/screens/login_pages/login.dart';
@@ -100,7 +99,6 @@ class _ProfilePageState extends State<ProfilePage> {
           isArtisan ? "Shop" : "Favorites",
         ),
         _buildListTile(Icons.edit, "Edit Account"),
-        _buildListTile(Icons.notifications, "Notifications"),
         _buildListTile(Icons.description, "Terms of Use"),
         const SizedBox(height: 120),
         Center(child: _buildLogoutButton()),
@@ -130,9 +128,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 break;
               case "Edit Account":
                 Get.to(() => const EditAccountPage());
-                break;
-              case "Notifications":
-                Get.to(() => const NotificationsPage());
                 break;
               case "Terms of Use":
                 Get.to(() => const TermsOfUsePage());

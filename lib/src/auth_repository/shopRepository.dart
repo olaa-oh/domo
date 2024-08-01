@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:domo/src/constants/booking_model.dart';
 import 'package:domo/src/constants/interactionsModel.dart';
 import 'package:domo/src/constants/shop_model.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 
 class ShopRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

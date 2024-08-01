@@ -216,7 +216,7 @@ class _CreateShopPageState extends State<CreateShopPage> {
               SizedBox(height: 10),
               _buildWorkingHoursInput(),
               const SizedBox(height: 20),
-              _buildLocationButton(),
+              // _buildLocationButton(),
               const SizedBox(height: 20),
               _buildGalleryImagePicker(),
               const SizedBox(height: 20),
@@ -353,18 +353,18 @@ class _CreateShopPageState extends State<CreateShopPage> {
     );
   }
 
-  Widget _buildLocationButton() {
-    return ElevatedButton.icon(
-      icon: const Icon(Icons.location_on),
-      label: Text('Get Location', style: AppTheme.textTheme.bodyLarge!.copyWith(color: AppTheme.background)),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppTheme.button,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        minimumSize: const Size.fromHeight(50),
-      ),
-      onPressed: _getLocation,
-    );
-  }
+  // Widget _buildLocationButton() {
+  //   return ElevatedButton.icon(
+  //     icon: const Icon(Icons.location_on),
+  //     label: Text('Get Location', style: AppTheme.textTheme.bodyLarge!.copyWith(color: AppTheme.background)),
+  //     style: ElevatedButton.styleFrom(
+  //       backgroundColor: AppTheme.button,
+  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+  //       minimumSize: const Size.fromHeight(50),
+  //     ),
+  //     onPressed: _getLocation,
+  //   );
+  // }
 
   Widget _buildGalleryImagePicker() {
     return Column(

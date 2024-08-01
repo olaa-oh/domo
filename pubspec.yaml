@@ -11,32 +11,33 @@ dependencies:
     sdk: flutter
     # for the google fonts: nunito
   google_fonts: ^6.2.1
-  material_symbols_icons: ^4.2768.0
+  material_symbols_icons: ^4.2771.0
   flutter_animated_icons: ^1.0.1
   # for the liquid swipe on the onboarding screen
   liquid_swipe: ^3.1.0
   # for the smooth page indicator
-  smooth_page_indicator: ^1.1.0
+  smooth_page_indicator: ^1.2.0+3
   # for the google sign in
-  google_sign_in: ^5.4.0
+  google_sign_in: ^6.2.1
   # for the pincode boxes
-  pin_code_fields: ^7.3.0
+  pin_code_fields: ^8.0.1
   firebase_core: ^3.2.0
-  firebase_auth: ^5.1.2
-  # for international number input
-  intl_phone_number_input: ^0.7.3+1
+  firebase_auth: ^5.1.3
   # for getxcontrollers
   get: ^4.6.6
   # for the firebase auth
   flutter_launcher_icons: "^0.13.1"
-  cloud_firestore: ^5.1.0
+  cloud_firestore: ^5.2.0
   image_picker: ^1.1.2
-  firebase_storage: ^12.1.1
+  firebase_storage: ^12.1.2
   geolocator: ^12.0.0
-  flutter_local_notifications: ^17.2.1+2
   uuid: ^4.4.2
   shimmer: ^3.0.0
   url_launcher: ^6.1.10
+  # for notifications
+  flutter_local_notifications: ^17.2.1+2
+  # firebase_messaging: ^15.0.4
+  path_provider: ^2.1.4
 
 flutter_launcher_icons:
   android: "launcher_icon"
@@ -48,7 +49,7 @@ flutter_launcher_icons:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
+  flutter_lints: ^4.0.0
 
 flutter:
   uses-material-design: true

@@ -75,4 +75,45 @@ Future<List<Booking>> getOwnerBookings(String ownerId) async {
       return 0;
     }
   }
+
+  // sending notifications
+  //  Future<void> sendNotificationToArtisan(String artisanToken, String shopName, String customerEmail) async {
+  //   try {
+  //     final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('sendNotification');
+  //     await callable.call({
+  //       'token': artisanToken,
+  //       'title': 'New Booking',
+  //       'body': 'A new booking has been made for $shopName by $customerEmail',
+  //       'data': {
+  //         'type': 'new_booking',
+  //         'shopName': shopName,
+  //         'customerEmail': customerEmail,
+  //       },
+  //     });
+  //   } catch (e) {
+  //     print('Error sending notification: $e');
+  //   }
+  // }
+
+  // Future<void> sendNotificationToCustomer(String customerToken, String shopName, BookingStatus status) async {
+  //   try {
+  //     final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('sendNotification');
+  //     await callable.call({
+  //       'token': customerToken,
+  //       'title': 'Booking Update',
+  //       'body': 'Your booking for $shopName has been ${status.toString().split('.').last}',
+  //       'data': {
+  //         'type': 'booking_update',
+  //         'shopName': shopName,
+  //         'status': status.index.toString(),
+  //       },
+  //     });
+  //   } catch (e) {
+  //     print('Error sending notification: $e');
+  //   }
+  // }
+
+
+
+
 }
