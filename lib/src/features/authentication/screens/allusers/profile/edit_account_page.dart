@@ -193,6 +193,8 @@ class _EditAccountPageState extends State<EditAccountPage> {
                       phonenumber: phonenumber.text.trim(),
                       password: password.text.trim(),
                       imageUrl: userData.imageUrl,
+                      role: userData.role,
+                      // isArtisan: userData.isArtisan,
                     );
                     await controller.updateUser(updatedUser);
                     _refreshData();

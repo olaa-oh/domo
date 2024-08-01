@@ -18,7 +18,9 @@ class OTPController extends GetxController {
         _createAccountController.email.text.trim(),
         _createAccountController.password.text.trim(),
         _createAccountController.role.value,
-        _createAccountController.phoneNumber.text.trim()
+        _createAccountController.phoneNumber.text.trim(),
+        _createAccountController.isArtisan.value,
+   
       );
     } else {
       Get.snackbar('Error', 'Invalid OTP. Please try again.');

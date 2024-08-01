@@ -10,7 +10,6 @@ class VerifyOTPPage extends StatefulWidget {
 
   const VerifyOTPPage({Key? key, required this.phoneNumber}) : super(key: key);
 
-
   @override
   _VerifyOTPPageState createState() => _VerifyOTPPageState();
 }
@@ -56,6 +55,16 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.button,
+      appBar: AppBar(
+      backgroundColor: AppTheme.button,
+      elevation: 0,
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back_ios, color: AppTheme.background),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
+    ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -108,7 +117,8 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
             const SizedBox(height: 20),
             ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(AppTheme.background),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(AppTheme.background),
               ),
               onPressed: () {
                 OTPController.instance.verifyOTP(_verificationCode);

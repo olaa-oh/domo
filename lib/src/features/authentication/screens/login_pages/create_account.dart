@@ -221,14 +221,14 @@ String? validatePhoneNumber(String? value) {
                             groupValue: controller.role.value,
                             onChanged: (value) => controller.setRole(value!),
                           )),
-                      Text('Customer'),
-                      SizedBox(width: 30),
+                      const Text('Customer'),
+                      const SizedBox(width: 30),
                       Obx(() => Radio<String>(
                             value: 'artisan',
                             groupValue: controller.role.value,
                             onChanged: (value) => controller.setRole(value!),
                           )),
-                      Text('Artisan'),
+                      const Text('Artisan'),
                     ],
                   ),
                   const SizedBox(height: 30),
@@ -273,6 +273,7 @@ String? validatePhoneNumber(String? value) {
                             phonenumber: controller.phoneNumber.text.trim(),
                             password: controller.password.text.trim(),
                             role: controller.role.value,
+                            // isArtisan: controller.role.value == 'artisan',
                           );
                           CreateAccountController.instance.createUsers(user);
 
@@ -288,7 +289,7 @@ String? validatePhoneNumber(String? value) {
                           color: AppTheme.background,
                         )),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

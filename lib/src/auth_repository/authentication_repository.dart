@@ -1,12 +1,8 @@
-// authentication page
 import 'package:domo/src/features/authentication/screens/login_pages/otp.dart';
 import 'package:domo/src/features/authentication/screens/login_pages/splash_screen.dart';
-import 'package:domo/src/features/authentication/screens/allusers/homepage.dart';
 import 'package:domo/src/features/authentication/screens/login_pages/login.dart';
-import 'package:domo/src/widgets/navigation_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:domo/src/auth_repository/exceptions/signup_exceptions.dart';
@@ -14,7 +10,6 @@ import 'package:domo/src/auth_repository/exceptions/signup_exceptions.dart';
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
-  // firebase authentication variables
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   late final Rx<User?> firebaseUser;
@@ -42,7 +37,6 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  // phone with otp authentication
   void phoneNumberAuthentication(String phonenumber) async {
     await _auth.verifyPhoneNumber(
       phoneNumber: phonenumber,
@@ -66,7 +60,6 @@ class AuthenticationRepository extends GetxController {
     );
   }
 
-  // actual otp verification
   Future<bool> verifyOtp(String otp) async {
     try {
       UserCredential credential = await _auth.signInWithCredential(
@@ -79,39 +72,35 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  // create user with email, password, and role
   Future<void> createUser(String name, String email, String password,
-      String role, String phonenumber) async {
-    try {
-      final userCredential = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+    String role, String phonenumber) async {
+  try {
+    final userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email, password: password);
 
-      // Store user role in Firestore
-      await _firestore.collection('users').doc(userCredential.user!.email).set({
-        'name': name,
-        'role': role,
-        'email': email,
-        'password': password,
-        'id': email,
-        'phonenumber': phonenumber,
-        'imageUrl': '',
-      });
+    await _firestore.collection('users').doc(userCredential.user!.email).set({
+      'name': name,
+      'role': role.toLowerCase(), // Ensure role is lowercase
+      'email': email,
+      'password': password,
+      'id': email,
+      'phonenumber': phonenumber,
+      'imageUrl': '',
+    });
 
-      firebaseUser.value != null
-          ? Get.offAll(() => const Login())
-          : Get.offAll(() => const SplashScreen());
-    } on FirebaseAuthException catch (e) {
-      final ex = loginUserExceptions.code(e.code);
-      print("FIREBASE AUTH EXCEPTIONS: ${ex.message}");
-      throw ex;
-    } catch (_) {
-      const ex = loginUserExceptions();
-      print("FIREBASE AUTH EXCEPTIONS: ${ex.message}");
-      throw ex;
-    }
+    firebaseUser.value != null
+        ? Get.offAll(() => const Login())
+        : Get.offAll(() => const SplashScreen());
+  } on FirebaseAuthException catch (e) {
+    final ex = loginUserExceptions.code(e.code);
+    print("FIREBASE AUTH EXCEPTIONS: ${ex.message}");
+    throw ex;
+  } catch (_) {
+    const ex = loginUserExceptions();
+    print("FIREBASE AUTH EXCEPTIONS: ${ex.message}");
+    throw ex;
   }
-
-  // sign in with email and password
+}
   Future<UserCredential?> loginUser(String email, String password) async {
     try {
       final userCredential = await _auth.signInWithEmailAndPassword(
@@ -130,7 +119,6 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  // get user role
   Future<String?> getUserRole() async {
     try {
       User? user = _auth.currentUser;
@@ -146,7 +134,21 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  // sign out user
+  Future<bool> isUserArtisan() async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        DocumentSnapshot userData =
+            await _firestore.collection('users').doc(user.email).get();
+        return userData['isArtisan'] as bool? ?? false;
+      }
+      return false;
+    } catch (e) {
+      print("Error checking if user is artisan: $e");
+      return false;
+    }
+  }
+
   Future<void> signOut() async {
     try {
       await _auth.signOut();

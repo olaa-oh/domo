@@ -2,13 +2,15 @@ import 'package:domo/src/constants/user_model.dart';
 import 'package:domo/src/features/authentication/controllers/create_account_controller.dart';
 import 'package:domo/src/features/authentication/controllers/profile_controller.dart';
 import 'package:domo/src/features/authentication/screens/allusers/profile/edit_account_page.dart';
-import 'package:domo/src/features/authentication/screens/allusers/profile/favorites_page.dart';
-import 'package:domo/src/features/authentication/screens/allusers/profile/notifications_page.dart';
+import 'package:domo/src/features/authentication/screens/customers_pages/favorites_page.dart';
+import 'package:domo/src/features/authentication/screens/customers_pages/notifications_page.dart';
 import 'package:domo/src/features/authentication/screens/allusers/profile/terms_of_use_page.dart';
+import 'package:domo/src/features/authentication/screens/artisans_pages/accountArt.dart';
 import 'package:domo/src/features/authentication/screens/login_pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:domo/src/constants/style.dart';
+import 'package:domo/src/auth_repository/authentication_repository.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key? key}) : super(key: key);
@@ -19,6 +21,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final controller = Get.put(ProfileController());
+  final authRepo = Get.find<AuthenticationRepository>();
   late Future<UserModel?> _userFuture;
 
   @override
@@ -59,16 +62,18 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _buildProfileContent(UserModel? user) {
+    bool isArtisan = user?.role?.toLowerCase() == 'artisan';
+
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
       children: [
         Row(
           children: [
-            user?.imageUrl != null
+            user?.imageUrl != null && user!.imageUrl!.isNotEmpty
                 ? CircleAvatar(
                     radius: 40,
                     backgroundColor: AppTheme.button,
-                    backgroundImage: NetworkImage(user!.imageUrl!),
+                    backgroundImage: NetworkImage(user.imageUrl!),
                   )
                 : const CircleAvatar(
                     radius: 30,
@@ -82,17 +87,18 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(width: 20),
             Text(
               "Hello, ${user?.name ?? 'User'}",
+              softWrap: true,
               style: AppTheme.textTheme.headlineMedium!.copyWith(
                 color: AppTheme.darkBackground,
-                // fontWeight: FontWeight.bold,
               ),
             ),
           ],
         ),
-        // SizedBox(height: 20),
-        // Divider(color: AppTheme.border.withOpacity(0.5)),
         const SizedBox(height: 50),
-        _buildListTile(Icons.favorite, "Favorites"),
+        _buildListTile(
+          isArtisan ? Icons.store : Icons.favorite,
+          isArtisan ? "Shop" : "Favorites",
+        ),
         _buildListTile(Icons.edit, "Edit Account"),
         _buildListTile(Icons.notifications, "Notifications"),
         _buildListTile(Icons.description, "Terms of Use"),
@@ -118,6 +124,9 @@ class _ProfilePageState extends State<ProfilePage> {
             switch (title) {
               case "Favorites":
                 Get.to(() => const FavoritesPage());
+                break;
+              case "Shop":
+                Get.to(() => CreateShopPage());
                 break;
               case "Edit Account":
                 Get.to(() => const EditAccountPage());

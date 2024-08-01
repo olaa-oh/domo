@@ -1,0 +1,109 @@
+import 'package:domo/src/constants/booking_model.dart';
+import 'package:flutter/material.dart';
+import 'package:domo/src/constants/style.dart';
+import 'package:domo/src/auth_repository/shopRepository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class AppointmentsPage extends StatefulWidget {
+  const AppointmentsPage({Key? key}) : super(key: key);
+
+  @override
+  State<AppointmentsPage> createState() => _AppointmentsPageState();
+}
+
+class _AppointmentsPageState extends State<AppointmentsPage> {
+  final ShopRepository _shopRepository = ShopRepository();
+  List<Booking> _bookings = [];
+  bool _isLoading = true;
+  bool _isMounted = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _isMounted = true;
+    _loadBookings();
+  }
+
+  Future<void> _loadBookings() async {
+    if (!_isMounted) return;
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    String userId = FirebaseAuth.instance.currentUser?.email ?? '';
+    List<Booking> bookings = await _shopRepository.getBookingsForUser(userId);
+
+    if (_isMounted) {
+      setState(() {
+        _bookings = bookings;
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Appointments', style: AppTheme.textTheme.headlineSmall),
+      ),
+      body: RefreshIndicator(
+        onRefresh: _loadBookings,
+        child: _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : _bookings.isEmpty
+                ? Center(child: Text('No bookings yet'))
+                : ListView.builder(
+                    itemCount: _bookings.length,
+                    itemBuilder: (context, index) {
+                      return BookingCard(
+                        booking: _bookings[index],
+                        onTap: () {
+                          // Navigate to booking details page
+                        },
+                      );
+                    },
+                  ),
+      ),
+    );
+  }
+}
+
+class BookingCard extends StatelessWidget {
+  final Booking booking;
+  final VoidCallback onTap;
+
+  const BookingCard({Key? key, required this.booking, required this.onTap}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        title: Text('Booking for ${booking.shopId}'),
+        subtitle: Text('Date: ${booking.bookingDate}'),
+        trailing: _buildStatusChip(),
+        onTap: onTap,
+      ),
+    );
+  }
+
+  Widget _buildStatusChip() {
+    Color color;
+    switch (booking.status) {
+      case BookingStatus.pending:
+        color = Colors.orange;
+        break;
+      case BookingStatus.approved:
+        color = Colors.green;
+        break;
+      case BookingStatus.denied:
+        color = Colors.red;
+        break;
+    }
+    return Chip(
+      label: Text(booking.status.toString().split('.').last),
+      backgroundColor: color,
+    );
+  }
+}

@@ -19,6 +19,7 @@ class CreateAccountController extends GetxController {
   final password = TextEditingController();
   final password2 = TextEditingController();
   final Rx<String> role = ''.obs;
+  final RxBool isArtisan = false.obs;
 
   
   final userRepo = Get.put(UserRespository());
@@ -31,7 +32,7 @@ class CreateAccountController extends GetxController {
 
   // function to register a user
   void registerUser(String name, String email, String password, String role,
-      String phonenumber) {
+      String phonenumber,bool isArtisan) async {
     AuthenticationRepository.instance
         .createUser(name, email, password, role, phonenumber);
   }
