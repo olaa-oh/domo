@@ -1,1 +1,0 @@
-// search page will show the results of the search by shop name

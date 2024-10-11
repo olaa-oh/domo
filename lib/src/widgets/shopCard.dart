@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:domo/src/constants/shop_model.dart';
-import 'package:domo/src/constants/style.dart';
+import 'package:domo/src/features/authentication/model/shop_model.dart';
+import 'package:domo/src/features/authentication/model/style_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ShopCard extends StatelessWidget {

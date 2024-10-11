@@ -1,8 +1,8 @@
-import 'package:domo/src/features/authentication/screens/allusers/profile/account.dart';
-import 'package:domo/src/features/authentication/screens/artisans_pages/bookingsArt.dart';
-import 'package:domo/src/features/authentication/screens/customers_pages/appointments.dart';
-import 'package:domo/src/features/authentication/screens/artisans_pages/my_shop_page.dart';
-import 'package:domo/src/features/authentication/screens/customers_pages/shops.dart';
+import 'package:domo/src/features/authentication/view/account.dart';
+import 'package:domo/src/features/notifications/view/bookingsArt.dart';
+import 'package:domo/src/features/booking/view/appointments.dart';
+import 'package:domo/src/features/shop/view/my_shop_page.dart';
+import 'package:domo/src/features/shop/view/shops.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

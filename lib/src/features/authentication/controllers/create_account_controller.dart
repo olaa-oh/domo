@@ -1,8 +1,8 @@
 // create account controller
-import 'package:domo/src/auth_repository/authentication_repository.dart';
-import 'package:domo/src/auth_repository/user_repository.dart';
-import 'package:domo/src/constants/user_model.dart';
-import 'package:domo/src/features/authentication/screens/login_pages/otp.dart';
+import 'package:domo/src/data/auth_repository/authentication_repository.dart';
+import 'package:domo/src/data/auth_repository/user_repository.dart';
+import 'package:domo/src/features/authentication/model/user_model.dart';
+import 'package:domo/src/features/authentication/view/otp.dart';
 // import 'package:domo/src/features/authentication/screens/login_pages/create_account.dart';
 // import 'package:domo/src/features/authentication/screens/other_pages/homepage.dart';
 import 'package:domo/src/widgets/navigation_bar.dart';

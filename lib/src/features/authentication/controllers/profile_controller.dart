@@ -1,9 +1,9 @@
 // profile controller 
 import 'dart:io';
 
-import 'package:domo/src/auth_repository/authentication_repository.dart';
-import 'package:domo/src/auth_repository/user_repository.dart';
-import 'package:domo/src/constants/user_model.dart';
+import 'package:domo/src/data/auth_repository/authentication_repository.dart';
+import 'package:domo/src/data/auth_repository/user_repository.dart';
+import 'package:domo/src/features/authentication/model/user_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

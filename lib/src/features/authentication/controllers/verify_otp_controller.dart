@@ -1,7 +1,7 @@
 // verify otp controller page
-import 'package:domo/src/auth_repository/authentication_repository.dart';
+import 'package:domo/src/data/auth_repository/authentication_repository.dart';
 import 'package:domo/src/features/authentication/controllers/create_account_controller.dart';
-import 'package:domo/src/features/authentication/screens/login_pages/login.dart';
+import 'package:domo/src/features/authentication/view/login.dart';
 import 'package:get/get.dart';
 
 class OTPController extends GetxController {

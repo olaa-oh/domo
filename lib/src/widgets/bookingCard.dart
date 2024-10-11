@@ -1,7 +1,7 @@
-import 'package:domo/src/auth_repository/booking_repository.dart';
+import 'package:domo/src/data/auth_repository/booking_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:domo/src/constants/booking_model.dart';
-import 'package:domo/src/constants/style.dart';
+import 'package:domo/src/features/booking/models/booking_model.dart';
+import 'package:domo/src/features/authentication/model/style_model.dart';
 
 class BookingCard extends StatefulWidget {
   final BookingRepository _bookingRepository = BookingRepository();
